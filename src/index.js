@@ -3,7 +3,22 @@ function displayTemperature(response) {
   let temperature = Math.round(response.data.temperature.current);
   let cityElement = document.querySelector("#current-city");
   cityElement.innerHTML = response.data.city;
+
+  // Update temperature, humidity, wind speed, and weather description
   temperatureElement.innerHTML = temperature;
+  document.querySelector(
+    "#humidity"
+  ).innerHTML = `${response.data.temperature.humidity}%`;
+  document.querySelector("#wind-speed").innerHTML = `${Math.round(
+    response.data.wind.speed
+  )} km/h`;
+  document.querySelector("#weather-description").innerHTML =
+    response.data.condition.description;
+
+  // Update weather icon
+  let weatherIconElement = document.querySelector("#weather-icon");
+  weatherIconElement.setAttribute("src", response.data.condition.icon_url);
+  weatherIconElement.setAttribute("alt", response.data.condition.description);
 }
 
 function search(event) {
